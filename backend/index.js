@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const { connections } = require('./configs/db');
 const userRouter = require('./routers/UserRouter');
+const resumeRouter = require('./routers/ResumeRouter');
+const { auth } = require('./middilewares/AuthMiddileware');
 
 
 
@@ -13,7 +15,8 @@ app.use(express.json());
 
 // Routes
 
-app.use("/users", userRouter);
+app.use("/auth", userRouter);
+app.use("/resumes",auth, resumeRouter);   
 
 
 
