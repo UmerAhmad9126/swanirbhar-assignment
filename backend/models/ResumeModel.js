@@ -12,11 +12,11 @@ const personalInfoSchema = new mongoose.Schema({
 });
 
 const educationSchema = new mongoose.Schema({
-    instituteName: { type: String, required: true },
-    degree: { type: String, required: true },
-    startDate: { type: Date, required: true },
-    endDate: { type: Date, required: true },
-    location: { type: String, required: true }
+    instituteName: { type: String },
+    degree: { type: String },
+    startDate: { type: Date },
+    endDate: { type: Date },
+    location: { type: String }
 });
 
 const projectSchema = new mongoose.Schema({

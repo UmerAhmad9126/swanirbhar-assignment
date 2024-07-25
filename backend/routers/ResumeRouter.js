@@ -9,6 +9,7 @@ const resumeRouter = express.Router();
 resumeRouter.get('/:id', async (req, res) => {
     try {
         const resume = await ResumeModel.findById(req.params.id);
+        
         if (!resume) {
             return res.status(404).json({ message: 'Resume not found' });
         }
