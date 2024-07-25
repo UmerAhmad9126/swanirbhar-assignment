@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+require('dotenv').config();
 const { connections } = require('./configs/db');
 const userRouter = require('./routers/UserRouter');
 const resumeRouter = require('./routers/ResumeRouter');
@@ -14,13 +15,12 @@ app.use(express.json());
 
 
 // Routes
-
 app.use("/auth", userRouter);
-app.use("/resumes",auth, resumeRouter);   
+app.use("/resumes", auth, resumeRouter);
 
 
 
-app.listen(8080, async () => {
+app.listen(process.env.PORT, async () => {
     try {
         await connections
         console.log("Connected to DB")

@@ -7,7 +7,7 @@ const auth = (req, res, next) => {
     }
 
     try {
-        const verified = jwt.verify(token, 'secret_key');
+        const verified = jwt.verify(token, 'resume_builder');
         req.user = verified;
         next();
     } catch (err) {

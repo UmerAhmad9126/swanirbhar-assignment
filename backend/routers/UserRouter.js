@@ -33,7 +33,7 @@ userRouter.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        const token = jwt.sign({ userId: user._id }, 'secret_key');
+        const token = jwt.sign({ userId: user._id }, 'resume_builder');
         res.json({ msg: "Login Success", token });
 
     } catch (error) {

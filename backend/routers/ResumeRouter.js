@@ -68,7 +68,7 @@ resumeRouter.put('/:id', async (req, res) => {
 });
 
 // Delete Resume
-resumeRouter.delete('/:id', auth, async (req, res) => {
+resumeRouter.delete('/:id', async (req, res) => {
 
 
     try {
