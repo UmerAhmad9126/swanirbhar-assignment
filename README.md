@@ -2,7 +2,7 @@
 
 ## Overview
 
-The AI-Powered Resume Builder is a web application designed to help users create, manage, and optimize their resumes with the assistance of AI. The application features user authentication, resume management, AI-powered content suggestions, and real-time resume previews.
+The Resume Builder is a web application designed to help users create, manage, and optimize their resumes with the assistance of AI. The application features user authentication, resume management, AI-powered content suggestions, and real-time resume previews.
 
 ## Key Features
 
@@ -12,9 +12,7 @@ The AI-Powered Resume Builder is a web application designed to help users create
 2. **Basic Resume Management**
    - Create, edit, and delete resumes.
    - Manage sections such as personal information, work experience, education, and skills.
-  
-4. **Real-Time Resume Preview**
-   - Real-time preview updates as users input information into their resumes.
+ 
 
 ## Installation
 
@@ -23,8 +21,7 @@ To set up the project locally, follow these steps:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/ai-powered-resume-builder.git
-   cd ai-powered-resume-builder
+   git clone https://github.com/UmerAhmad9126/swanirbhar-assignment.gi
    ```
 
 2. **Install Dependencies**
@@ -46,12 +43,8 @@ To set up the project locally, follow these steps:
    Create a `.env` file in the `backend` directory with the following variables:
 
    ```
-   PORT=5000
-   JWT_SECRET=your_jwt_secret
-   OPENAI_API_KEY=your_openai_api_key
+   PORT=8080
    ```
-
-   Replace `your_jwt_secret` and `your_openai_api_key` with your actual JWT secret and OpenAI API key.
 
 4. **Run the Application**
 
@@ -69,8 +62,6 @@ To set up the project locally, follow these steps:
    npm start
    ```
 
-   The application should now be running at `http://localhost:3000`.
-
 ## API Endpoints
 
 - **User Authentication**
@@ -82,4 +73,3 @@ To set up the project locally, follow these steps:
   - **Edit Resume**: `PUT /api/resumes/{id}`
   - **Delete Resume**: `DELETE /api/resumes/{id}`
 
-ences.
