@@ -21,7 +21,7 @@ To set up the project locally, follow these steps:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/UmerAhmad9126/swanirbhar-assignment.gi
+   git clone https://github.com/UmerAhmad9126/swanirbhar-assignment.git
    ```
 
 2. **Install Dependencies**
