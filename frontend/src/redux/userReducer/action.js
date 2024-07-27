@@ -18,7 +18,7 @@ const userFailureAction = () => {
 // Register/signup
 export const addUser = (payload) => (dispatch) => {
     dispatch(userRequestAction());
-    axios.post("http://localhost:8080/auth/register", payload)
+    axios.post("https://swanirbhar-backend-4v6f.onrender.com/auth/register/", payload)
         .then((res) => {
             console.log('res:', res.data);
             dispatch(userSuccessAction());

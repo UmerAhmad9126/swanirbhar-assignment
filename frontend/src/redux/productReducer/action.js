@@ -35,7 +35,7 @@ const deleteResumeDataSuccessAction = () => {
 // Add resume
 export const addResumedata = (payload, headers) => (dispatch) => {
     dispatch(resumeDataRequestAction());
-    axios.post("http://localhost:8080/resumes/", payload, headers)
+    axios.post("https://swanirbhar-backend-4v6f.onrender.com/resumes/", payload, headers)
         .then((res) => {
             console.log('res:', res);
             dispatch(postResumeDataSuccessAction());
@@ -50,7 +50,7 @@ export const addResumedata = (payload, headers) => (dispatch) => {
 // getResume
 export const getResumeData = (headers) => (dispatch) => {
     dispatch(resumeDataRequestAction());
-    axios.get(`http://localhost:8080/resumes`, headers)
+    axios.get(`https://swanirbhar-backend-4v6f.onrender.com/resumes`, headers)
         .then((res) => {
             console.log('res:', res.data);
             dispatch(getResumeDataSuccessAction(res.data));
@@ -64,7 +64,7 @@ export const getResumeData = (headers) => (dispatch) => {
 // Delete Resume
 export const deleteResumeData = (id, headers) => (dispatch) => {
     dispatch(resumeDataRequestAction());
-    axios.delete(`http://localhost:8080/resumes/${id}`, headers)
+    axios.delete(`https://swanirbhar-backend-4v6f.onrender.com/resumes/${id}`, headers)
         .then((res) => {
             console.log('res:', res.data);
             dispatch(deleteResumeDataSuccessAction());
@@ -78,7 +78,7 @@ export const deleteResumeData = (id, headers) => (dispatch) => {
 // Edit Resume
 export const EditResumeData = (payload, id, headers) => (dispatch) => {
     dispatch(resumeDataRequestAction());
-    return axios.put(`http://localhost:8080/resumes/${id}`, payload, headers)
+    return axios.put(`https://swanirbhar-backend-4v6f.onrender.com/resumes/${id}`, payload, headers)
         .then((res) => {
             console.log('res:', res.data);
             dispatch((editResumeDataSuccessAction()));
