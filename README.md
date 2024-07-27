@@ -12,6 +12,13 @@ The Resume Builder is a web application designed to help users create, manage, a
 2. **Basic Resume Management**
    - Create, edit, and delete resumes.
    - Manage sections such as personal information, work experience, education, and skills.
+
+### Backend Deployed Link :-
+ https://swanirbhar-backend-4v6f.onrender.com
+
+### Frontend Deployed Link :-
+https://frontend-2a7s2gt8y-umerahmad9126s-projects.vercel.app
+
  
 
 ## Installation
