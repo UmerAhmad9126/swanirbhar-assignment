@@ -76,7 +76,7 @@ export default function SplitScreen() {
       setHasSubmitted(false);
     }
 
-  }, [isError, isLoading, hasSubmitted, toast]);
+  }, [isError, isLoading, hasSubmitted, toast, navigate, token]);
 
 
 

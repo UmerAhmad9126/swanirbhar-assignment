@@ -72,7 +72,7 @@ export default function SignupPage() {
             }
             setHasSubmitted(false);
         }
-    }, [isError, isLoading, hasSubmitted, toast]);
+    }, [isError, isLoading, hasSubmitted, toast, navigate]);
 
     return (
         <Flex

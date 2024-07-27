@@ -1,4 +1,7 @@
 import { DELETE_RESUME_DATA_SUCCESS, GET_RESUME_DATA_SUCCESS, PATCH_RESUME_DATA_SUCCESS, POST_RESUME_DATA_SUCCESS, RESUME_DATA_FAILURE, RESUME_DATA_REQUEST } from "../actionType"
+import axios from "axios";
+
+
 
 const resumeDataRequestAction = () => {
     return { type: RESUME_DATA_REQUEST }
@@ -9,20 +12,85 @@ const resumeDataFailureAction = () => {
     return { type: RESUME_DATA_FAILURE }
 }
 
-const postResumeDataSuccessAction = (payload) => {
-    return { type: POST_RESUME_DATA_SUCCESS, payload }
+const postResumeDataSuccessAction = () => {
+    return { type: POST_RESUME_DATA_SUCCESS }
 }
 
 
-const getResumeDataSuccessAction = () => {
-    return { type: GET_RESUME_DATA_SUCCESS }
+const getResumeDataSuccessAction = (payload) => {
+    return { type: GET_RESUME_DATA_SUCCESS, payload }
 }
 
 
-const patchResumeDataSuccessAction = (payload) => {
-    return { type: PATCH_RESUME_DATA_SUCCESS, payload }
+const editResumeDataSuccessAction = () => {
+    return { type: PATCH_RESUME_DATA_SUCCESS }
 }
 
 const deleteResumeDataSuccessAction = () => {
-    return { type: DELETE_RESUME_DATA_SUCCESS, payload }
+    return { type: DELETE_RESUME_DATA_SUCCESS }
 }
+
+
+
+// Add resume
+export const addResumedata = (payload, headers) => (dispatch) => {
+    dispatch(resumeDataRequestAction());
+    axios.post("http://localhost:8080/resumes/", payload, headers)
+        .then((res) => {
+            console.log('res:', res);
+            dispatch(postResumeDataSuccessAction());
+
+        })
+        .catch((err) => {
+            console.log('err:', err);
+            dispatch(resumeDataFailureAction());
+        })
+};
+
+// getResume
+export const getResumeData = (headers) => (dispatch) => {
+    dispatch(resumeDataRequestAction());
+    axios.get(`http://localhost:8080/resumes`, headers)
+        .then((res) => {
+            console.log('res:', res.data);
+            dispatch(getResumeDataSuccessAction(res.data));
+        })
+        .catch((err) => {
+            console.log('err:', err);
+            dispatch(resumeDataFailureAction());
+        })
+};
+
+// Delete Resume
+export const deleteResumeData = (id, headers) => (dispatch) => {
+    dispatch(resumeDataRequestAction());
+    axios.delete(`http://localhost:8080/resumes/${id}`, headers)
+        .then((res) => {
+            console.log('res:', res.data);
+            dispatch(deleteResumeDataSuccessAction());
+        })
+        .catch((err) => {
+            console.log('err:', err);
+            dispatch(resumeDataFailureAction());
+        })
+};
+
+// Edit Resume
+export const EditResumeData = (payload, id, headers) => (dispatch) => {
+    dispatch(resumeDataRequestAction());
+    return axios.put(`http://localhost:8080/resumes/${id}`, payload, headers)
+        .then((res) => {
+            console.log('res:', res.data);
+            dispatch((editResumeDataSuccessAction()));
+        })
+        .catch((err) => {
+            console.log('err:', err);
+            dispatch(resumeDataFailureAction());
+        })
+};
+
+
+
+
+
+

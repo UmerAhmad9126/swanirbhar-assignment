@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     ChakraProvider,
     Box,
@@ -11,9 +11,12 @@ import {
     SimpleGrid,
     GridItem,
     VStack,
-    extendTheme
+    extendTheme,
+    useToast
 } from "@chakra-ui/react";
-
+import { useDispatch, useSelector } from "react-redux"
+import { addResumedata } from '../redux/productReducer/action';
+import { useNavigate } from 'react-router-dom';
 const theme = extendTheme({
     components: {
         Input: {
@@ -24,87 +27,98 @@ const theme = extendTheme({
     }
 });
 
-const CreateResumePage = () => {
-    const [resumeData, setResumeData] = useState({
-        title: "Software Engineer",
-        sections: {
-            personalInfo: {
-                fullName: "",
-                professionalSummary: "",
-                phoneNumber: "",
-                email: "",
-                linkedIn: "",
-                gitHub: "",
-                portfolio: "",
+
+const initialData = {
+    title: "Software Engineer",
+    sections: {
+        personalInfo: {
+            fullName: "",
+            professionalSummary: "",
+            phoneNumber: "",
+            email: "",
+            linkedIn: "",
+            gitHub: "",
+            portfolio: "",
+            location: ""
+        },
+        education: [
+            {
+                instituteName: "",
+                degree: "",
+                startDate: "",
+                endDate: "",
                 location: ""
             },
-            education: [
-                {
-                    instituteName: "",
-                    degree: "",
-                    startDate: "",
-                    endDate: "",
-                    location: ""
-                },
-                {
-                    instituteName: "",
-                    degree: "",
-                    startDate: "",
-                    endDate: "",
-                    location: ""
-                }
-            ],
-            projects: [
-                {
-                    projectTitle: "",
-                    gitHubURL: "",
-                    deployedURL: "",
-                    teamSize: "",
-                    startDate: "",
-                    endDate: "",
-                    projectDescription: "",
-                    features: [""],
-                    areasOfResponsibility: [""],
-                    techStack: [""]
-                },
-                {
-                    projectTitle: "",
-                    gitHubURL: "",
-                    deployedURL: "",
-                    teamSize: "",
-                    startDate: "",
-                    endDate: "",
-                    projectDescription: "",
-                    features: [""],
-                    areasOfResponsibility: [""],
-                    techStack: [""]
-                }
-            ],
-            workExperience: [
-                {
-                    jobTitle: "",
-                    organizationalName: "",
-                    companyWebsite: "",
-                    startDate: "",
-                    endDate: "",
-                    areasOfResponsibility: [""]
-                }
-            ],
-            skills: [""],
-            certifications: [
-                {
-                    certificateName: "",
-                    certificateURL: "",
-                    issuingOrganization: ""
-                },
-                {
-                    certificateName: "",
-                    certificateURL: "",
-                    issuingOrganization: ""
-                }
-            ]
-        }
-    });
+            {
+                instituteName: "",
+                degree: "",
+                startDate: "",
+                endDate: "",
+                location: ""
+            }
+        ],
+        projects: [
+            {
+                projectTitle: "",
+                gitHubURL: "",
+                deployedURL: "",
+                teamSize: "",
+                startDate: "",
+                endDate: "",
+                projectDescription: "",
+                features: [""],
+                areasOfResponsibility: [""],
+                techStack: [""]
+            },
+            {
+                projectTitle: "",
+                gitHubURL: "",
+                deployedURL: "",
+                teamSize: "",
+                startDate: "",
+                endDate: "",
+                projectDescription: "",
+                features: [""],
+                areasOfResponsibility: [""],
+                techStack: [""]
+            }
+        ],
+        workExperience: [
+            {
+                jobTitle: "",
+                organizationalName: "",
+                companyWebsite: "",
+                startDate: "",
+                endDate: "",
+                areasOfResponsibility: [""]
+            }
+        ],
+        skills: [""],
+        certifications: [
+            {
+                certificateName: "",
+                certificateURL: "",
+                issuingOrganization: ""
+            },
+            {
+                certificateName: "",
+                certificateURL: "",
+                issuingOrganization: ""
+            }
+        ]
+    }
+}
+
+const CreateResumePage = () => {
+    const [resumeData, setResumeData] = useState(initialData);
+    const dispatch = useDispatch();
+    const [hasSubmitted, setHasSubmitted] = useState(false);
+    const [clickGenerateResume, setClickGenerateResume] = useState(false);
+    const isError = useSelector((store) => store.resumeReducer.isError);
+    const isLoading = useSelector((store) => store.resumeReducer.isLoading);
+    const toast = useToast();
+    const navigate = useNavigate();
+
 
     const handleChange = (section, field, index, subIndex, e) => {
         const value = e.target.value;
@@ -158,9 +172,40 @@ const CreateResumePage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('resumeData:', resumeData);
-
+        const token = localStorage.getItem('token');
+        const headers = { headers: { Authorization: `Bearer ${token}` } }
+        dispatch(addResumedata(resumeData, headers));
+        setHasSubmitted(true);
+        setClickGenerateResume(true);
     };
+
+    const handleGenerateResume = () => {
+        navigate("/resume");
+    }
+
+
+    useEffect(() => {
+        if (hasSubmitted && !isLoading) {
+            if (isError) {
+                toast({
+                    title: `Please Fill Personal Information`,
+                    status: "error",
+                    isClosable: true,
+                    position: "top"
+                });
+            } else {
+                toast({
+                    title: `Resume Data Added Successfully.`,
+                    status: "success",
+                    isClosable: true,
+                    position: "top"
+                });
+            }
+            setHasSubmitted(false);
+        }
+    }, [isError, isLoading, hasSubmitted, toast, navigate]);
+
+
 
     return (
         <ChakraProvider theme={theme} bg="gray.50">
@@ -536,6 +581,7 @@ const CreateResumePage = () => {
                     </VStack>
                     <Button mt={6} colorScheme="teal" type="submit">Submit</Button>
                 </form>
+                <Button mt={6} colorScheme="teal" type="submit" isDisabled={!clickGenerateResume || isError} onClick={handleGenerateResume}>Generate Resume</Button>
             </Box>
         </ChakraProvider>
     );
