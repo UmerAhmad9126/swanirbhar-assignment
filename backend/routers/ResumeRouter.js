@@ -1,29 +1,22 @@
 const express = require('express');
 const ResumeModel = require('../models/ResumeModel');
-const { auth } = require('../middilewares/AuthMiddileware');
 
 
 const resumeRouter = express.Router();
 
-// Get Resume by ID
-resumeRouter.get('/:id', async (req, res) => {
+
+// Get resumes 
+resumeRouter.get('/', async (req, res) => {
     try {
-        const resume = await ResumeModel.findById(req.params.id);
-        
-        if (!resume) {
-            return res.status(404).json({ message: 'Resume not found' });
-        }
-
-        if (resume.user.toString() !== req.user.userId) {
-            return res.status(401).json({ message: 'User not authorized' });
-        }
-
-        res.json(resume);
+        const resumes = await ResumeModel.find({ user: req.user.userId });
+        res.json(resumes);
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
 });
+
+
 
 
 // create resume 
@@ -50,7 +43,6 @@ resumeRouter.put('/:id', async (req, res) => {
     const { title, sections } = req.body;
     try {
         let resume = await ResumeModel.findById(req.params.id);
-        console.log('resume:', resume);
         if (!resume) return res.status(404).json({ message: 'Resume not found' });
 
         if (resume.user.toString() !== req.user.userId) {
