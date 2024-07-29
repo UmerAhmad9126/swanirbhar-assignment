@@ -134,7 +134,7 @@ export default function SignupPage() {
                                 _hover={{
                                     bg: 'blue.500',
                                 }}>
-                                {isLoading ? "Submitting" : "Signup"}
+                                {isLoading ? "Please Wait..." : "Signup"}
                             </Button>
                         </Stack>
 

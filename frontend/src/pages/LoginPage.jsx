@@ -21,7 +21,7 @@ const initialData = {
   password: "",
 }
 
-export default function SplitScreen() {
+export default function Login() {
 
   const [loginUser, setLoginUser] = useState(initialData);
   const [hasSubmitted, setHasSubmitted] = useState(false);
@@ -102,7 +102,7 @@ export default function SplitScreen() {
               <Text color={'blue.500'}>Forgot password?</Text>
             </Stack>
             <Button colorScheme={'blue'} variant={'solid'} onClick={hadleLogin}>
-              Sign in
+              {isLoading ? "Please Wait..." : "Login"}
             </Button>
           </Stack>
         </Stack>
