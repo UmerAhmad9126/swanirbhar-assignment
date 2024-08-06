@@ -3,6 +3,7 @@
 ## Overview
 The Resume Builder is a web application designed to help users create, manage, and optimize their resumes with the assistance of AI. The application features user authentication, resume management, AI-powered content suggestions, and real-time resume previews.
 
+
 ## Key Features
 
 1. **User Authentication**
